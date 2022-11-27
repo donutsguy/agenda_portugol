@@ -7,14 +7,14 @@ programa
 
 	inteiro cont_contato = 0, cont_num = 0, cont_proc_nom = 0, nome_cont = 0, cont_proc = 0, cont_nil = 0, cont_elem = 0, cont_upload, cont_ctr, cont_a, elem_restantes, endereco
 	inteiro pos_final_linha, pos_caracter, cont_download, cont_alt, cont_existe_alt = 0, cont_novo_nome, cont_quebra_novo_nome = 0, cont_novo_numero, cont_quebra_novo_numero = 0
+	inteiro cont_procurar_nome, cont_achou_nome = 0
 	cadeia caixinha[100][2], for_sup[] = {"|txt"}, resp = "", proc_nome, guarda_num, resp_num, resp_menu, nome_ap, repos_1 = "", repos_2 = "", repos_nil = "", nil = ""
-	cadeia linha, resp_carregar, upload, escrita, resp_alt, resp_qual_dado, novo_nome, novo_numero
+	cadeia linha, resp_carregar, upload, escrita, resp_alt, resp_qual_dado, novo_nome, novo_numero, indice
 	const inteiro telefone = 0, nome = 1, max_contato = 100
 	logico quebra_w = verdadeiro, quebra_w1 = verdadeiro, quebra_w2 = verdadeiro, quebra_num = verdadeiro, quebra_novo_nome = verdadeiro, quebra_novo_numero = verdadeiro
 	logico quebra_alt = verdadeiro, quebra_perg_numero = verdadeiro, quebra_perg_nome = verdadeiro, quebra_menu = verdadeiro
 	funcao inicio(){
 		cadastro()
-		alterar()
 	}
 		
 	funcao cadastro(){
@@ -105,16 +105,9 @@ programa
 	funcao procura(){
 		escreva("Digite um nome para procurar na lista de contatos: ")
 		leia(proc_nome)
-
-		para(cont_proc = 0; cont_proc < 100; cont_proc++){
-			se(caixinha[cont_proc][telefone] == proc_nome){
-				escreva(caixinha[cont_proc][telefone], " ", caixinha[cont_proc][nome], " \t")
-				cont_proc_nom++
-			}
-		}
-		se(cont_proc_nom == 0){
-			escreva("Cadastro não encontrado!")
-		}
+		
+		escreva("O índice do nome procurado é: ", procurar_nome(proc_nome),"\n")
+		escreva(caixinha[cont_proc][telefone], " ", caixinha[cont_proc][nome], " \t")
 	}
 
 	funcao apagar(){
@@ -243,8 +236,17 @@ programa
 		}
 	}
 	
-	funcao procurar_nome(){
-		
+	funcao cadeia procurar_nome(cadeia nome_procurar){
+		para(cont_procurar_nome = 0; cont_procurar_nome < max_contato; cont_procurar_nome++){
+			se(caixinha[cont_procurar_nome][telefone] == nome_procurar){
+				indice = cont_procurar_nome + " " + telefone
+				cont_achou_nome++
+			}
+		}
+		se(cont_achou_nome == 0){
+			indice = "-1"
+		}
+		retorne indice
 	}
 }
 /* $$$ Portugol Studio $$$ 
@@ -252,8 +254,8 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 8665; 
- * @DOBRAMENTO-CODIGO = [104, 119, 145];
+ * @POSICAO-CURSOR = 3677; 
+ * @DOBRAMENTO-CODIGO = [19, 112, 138, 172];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
